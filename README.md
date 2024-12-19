@@ -39,13 +39,26 @@ A Portuguese bank has recently run a campaign to attempt to sell a new product t
 
     ![distribution](./pictures/descriptive_stats.png "distribution")
 
+    ![distribution](./pictures/2.1.png "distribution")
 
 
+    ![distribution](./pictures/2.2.png "distribution")
+    
+    ![distribution](./pictures/3.1.png "distribution")
+    
+    ![distribution](./pictures/3.2.png "distribution")
+
+    ![distribution](./pictures/4.1.png "distribution")
+
+    ![distribution](./pictures/4.2.png "distribution")
+  
+    ![distribution](./pictures/4.3.png "distribution")
+
+  
+    ![distribution](./pictures/model_1.png "distribution")
 
     
-
-
-
+    ![distribution](./pictures/model_2.png "distribution")
 ## Key Features
 - Town
 - Floor Area (sqm) 
