@@ -12,7 +12,8 @@ A Portuguese bank has recently run a campaign to attempt to sell a new product t
 3. [Data Exploration](#data-exploration)
 4. [Key Features](#key-features)
 5. [Modeling - KNeighborsClassifier](#modeling---kneighborsclassifier)
-6. [Conclusions](#conclusions)
+6. [Results of confusion matrix](#results-of-confusion-matrix)
+7. [Conclusions](#conclusions)
 
 ## Problem Definition
 - Problem Statement
@@ -75,16 +76,21 @@ Features chosen for each model:
 ## Modeling - KNeighborsClassifier
 
 Detail results of both models:
+
 a.	Baseline
+
 Accuracy: 0.8882198698650092
 
+
 b.	Model 1 – Age, job as features
+
 Accuracy: 0.8891910265125765
 
   
   ![distribution](./pictures/model_1.png "distribution")
 
 c.	Model 2 – Age, job, education as features
+
 Accuracy: 0.8883169855297659
 
   ![distribution](./pictures/model_2.png "distribution")
@@ -97,17 +103,24 @@ Notes:
 -	True Positive (Bottom-Right Quadrant)
 
 
-Results of confusion matrix:
+## Results of confusion matrix
+
 True positive – Model predicted the number of true subscriber
+
 Model 1: 60
+
 Model 2: 28
 
 False negative – Model predicted a person who is a subscriber as a non-subscriber
+
 Model 1: 1091
+
 Model 2: 1123
 
 False positive – Model predicted a person who is a non-subscriber as a subscriber
+
 Model 1: 50
+
 Model 2: 27
 
 
