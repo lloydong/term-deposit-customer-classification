@@ -9,11 +9,10 @@ A Portuguese bank has recently run a campaign to attempt to sell a new product t
 ## Table of Contents
 1. [Problem Definition](#problem-definition)
 2. [Data Collection](#data-collection)
-3. [Data Cleaning](#data-cleaning)
-4. [Data Exploration](#data-exploration)
-5. [Key Features](#key-features)
-6. [Modeling](#modeling)
-7. [Future Work](#future-work)
+3. [Data Exploration](#data-exploration)
+4. [Key Features](#key-features)
+5. [Modeling - KNeighborsClassifier](#modeling---kneighborsclassifier)
+6. [Conclusions](#conclusions)
 
 ## Problem Definition
 - Problem Statement
@@ -24,12 +23,6 @@ A Portuguese bank has recently run a campaign to attempt to sell a new product t
 - **Dataset Source**:
   - https://archive.ics.uci.edu/ml/datasets/Bank+Marketing
 
-
-## Data Cleaning
-- **Missing Values**: Replaced with '0' for mall within 500km, 1km and 2km and for hawker within 500m, 1km and 2km that have null values
-- **Remove data**: Dropped 829 data  for 'mall nearest distance'
-- **Duplicates**: No duplicate rows 
-- **Data Transformation**: Converted data to the correct format
   
 ## Data Exploration
 
@@ -37,59 +30,90 @@ A Portuguese bank has recently run a campaign to attempt to sell a new product t
 
   1. Investigated descriptive statistics about all the numerical columns.
 
-    ![distribution](./pictures/descriptive_stats.png "distribution")
+      ![distribution](./pictures/descriptive_stats.png "distribution")
 
-    ![distribution](./pictures/2.1.png "distribution")
+  2. Identified columns with null values and replaced with ‘Unknown’
+     
+      ![distribution](./pictures/2.1.png "distribution")
 
-
-    ![distribution](./pictures/2.2.png "distribution")
+  3. Outliers in age column can be ignored because it is only 1% of the dataset.
     
-    ![distribution](./pictures/3.1.png "distribution")
+      ![distribution](./pictures/3.1.png "distribution")
     
-    ![distribution](./pictures/3.2.png "distribution")
+      ![distribution](./pictures/3.2.png "distribution")
 
-    ![distribution](./pictures/4.1.png "distribution")
+  4. Explored the relationship between potential features and the target by investigating 3 columns: 
+     - Age
+     - Job
+     - Education 
 
-    ![distribution](./pictures/4.2.png "distribution")
-  
-    ![distribution](./pictures/4.3.png "distribution")
+      These 3 columns have distinct groups that are likely to subscribe (high percentage), so they are good features for machine learning model.
 
-  
-    ![distribution](./pictures/model_1.png "distribution")
+      - Age – People > 70 years old are more likely to subscribe
+      
+        ![distribution](./pictures/4.1.png "distribution")
+
+      - Job – Students and retirees are more likely to subscribe
+      
+        ![distribution](./pictures/4.2.png "distribution")
+
+      - Education – Illiterate is more likely to subscribe
+      
+        ![distribution](./pictures/4.3.png "distribution")
+
+
 
     
-    ![distribution](./pictures/model_2.png "distribution")
+
 ## Key Features
-- Town
-- Floor Area (sqm) 
-- Lease Commence Year 
-- Transaction Year 
-- Transaction Month 
-- Distance to Mall, Hawker & MRT
-- Storey Range
+Features chosen for each model:
+- Model 1 – Age (categorized into 4 groups), job
+- Model 2 – Age (categorized into 2 groups), job, education
 
 
 
-## Modeling
-- Predictive modeling is built using linear regression, with correlation between key features < ±0.9
-- Linear relationship between resale price and different factors .
-- For example: 
-  - Every km further from MRT would decrease the unit value by $25,000
-  - Every sqm increase will have an positive impact of $ 104,000
+## Modeling - KNeighborsClassifier
 
-- Results:
+Detail results of both models:
+a.	Baseline
+Accuracy: 0.8882198698650092
 
-  ![distribution](./pictures/actual_predicted.png "distribution")
+b.	Model 1 – Age, job as features
+Accuracy: 0.8891910265125765
 
-  - RMSE: 55,000 (Based on our model, the predicted price can vary from the actual price by $55,000 on average)
+  
+  ![distribution](./pictures/model_1.png "distribution")
 
-  - R<sup>2</sup> Score : 0.85 (85% of the changes / variation in the resale prices of HDB houses can be explained by our model)
+c.	Model 2 – Age, job, education as features
+Accuracy: 0.8883169855297659
+
+  ![distribution](./pictures/model_2.png "distribution")
 
 
-## Future Work
+Notes:
+-	True Negative (Top-Left Quadrant)
+-	False Positive (Top-Right Quadrant)
+-	False Negative (Bottom-Left Quadrant)
+-	True Positive (Bottom-Right Quadrant)
 
-Future enhancements for this linear regression model include:
-- Experimenting with more complex models like Random Forests, Gradient Boosting Machines (GBM), or XGBoost can improve predictive accuracy.
-- Incorporating a new feature, 'supermall proximity,' to better capture the influence of nearby shopping malls on HDB resale values.
-- Enhancing the Tableau dashboard to improve interactivity, user experience, and data visualization.
-- Implementing Auto ARIMA for time-series forecasting to further refine predictions based on market trends and seasonal fluctuations.
+
+Results of confusion matrix:
+True positive – Model predicted the number of true subscriber
+Model 1: 60
+Model 2: 28
+
+False negative – Model predicted a person who is a subscriber as a non-subscriber
+Model 1: 1091
+Model 2: 1123
+
+False positive – Model predicted a person who is a non-subscriber as a subscriber
+Model 1: 50
+Model 2: 27
+
+
+## Conclusions
+
+Both models perform better than baseline. However, model 1 has higher accuracy and ‘True Positive’ cases than Model 2. In other words, Model 1 can correctly label a true subscriber to be a subscriber.
+
+Further analysis should be done on ‘False Negative’ cases as this group of customers are subscribers, however, they were predicted wrongly by the model. ‘False positive’ cases can be ignored as these customers are non-subscribers.
+
